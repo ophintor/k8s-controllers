@@ -1,23 +1,41 @@
 alertmanager:
   ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: ca-issuer
     enabled: true
     ingressClassName: nginx
     hosts:
       - alertmanager.papichulo
     paths:
       - /
+    tls:
+      - hosts:
+        - alertmanager.papichulo
+        secretName: alertmanager-tls
 grafana:
   ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: ca-issuer
     enabled: true
     ingressClassName: nginx
     hosts:
       - grafana.papichulo
     path: /
+    tls:
+      - hosts:
+        - grafana.papichulo
+        secretName: grafana-tls
 prometheus:
   ingress:
+    annotations:
+      cert-manager.io/cluster-issuer: ca-issuer
     enabled: true
     ingressClassName: nginx
     hosts:
       - prometheus.papichulo
     paths:
       - /
+    tls:
+      - hosts:
+        - prometheus.papichulo
+        secretName: prometheus-tls
