@@ -1,4 +1,7 @@
 alertmanager:
+  serviceMonitor:
+    labels:
+      release: prometheus
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: ca-issuer
@@ -13,6 +16,9 @@ alertmanager:
         - alertmanager.papichulo
         secretName: alertmanager-tls
 grafana:
+  serviceMonitor:
+    labels:
+      release: prometheus
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: ca-issuer
@@ -26,6 +32,13 @@ grafana:
         - grafana.papichulo
         secretName: grafana-tls
 prometheus:
+  prometheusSpec:
+    matchLabels:
+      prometheus-monitoring: true
+  monitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: ca-issuer
