@@ -1,0 +1,25 @@
+image:
+  tag: "1.8"
+
+env:
+  - name: INFLUXDB_DB
+    value: "energy"
+
+## Set default user
+##
+setDefaultUser:
+  enabled: true
+  user:
+    existingSecret: influxdb-auth
+
+ingress:
+  enabled: true
+  hostname: influxdb.papichulo
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: ca-issuer
+  path: /
+
+# config:
+#   http:
+#     auth-enabled: false
